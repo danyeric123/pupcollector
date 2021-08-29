@@ -1,5 +1,6 @@
+from main_app.forms import FeedingForm
 from main_app.models import Pup
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
@@ -40,6 +41,19 @@ def pups_index(request):
   pups = Pup.objects.all()
   return render(request, 'pups/index.html', { 'pups': pups })
 
-def pups_detail(request, pk):
-  pup = Pup.objects.get(id=pk)
-  return render(request, 'pups/detail.html', { 'pup': pup })
+def pups_detail(request, pup_id):
+  pup = Pup.objects.get(id=pup_id)
+  feeding_form = FeedingForm()
+  return render(request, 'pups/detail.html', { 'pup': pup, 'feeding_form': feeding_form })
+
+def add_feeding(request, pup_id):
+  # create a ModelForm instance using the data in request.POST
+  form = FeedingForm(request.POST)
+  # validate the form
+  if form.is_valid():
+    # don't save the form to the db until it
+    # has the pup_id assigned
+    new_feeding = form.save(commit=False)
+    new_feeding.pup_id = pup_id
+    new_feeding.save()
+  return redirect('pups_detail', pup_id=pup_id)
