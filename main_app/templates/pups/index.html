@@ -22,10 +22,18 @@
       <div class="card-content">
         <a href="{% url 'pups_detail' pup.pk %}">
         <div class="card-img-container">
-          <img 
-            src="{% static 'images/dog1.svg' %}" 
-            alt="A skater boy pup"
-          >
+          {% if pup.photo.url %}
+              <img 
+                src="{{pup.photo.url}}" 
+                alt="A photo of {{pup.name}}"
+                class="usr-img"
+              >
+            {% else %}
+              <img 
+                src="{% static 'images/dog1.svg' %}" 
+                alt="A skater boy cat"
+              >
+            {% endif %}
         </div>
       </a>
         <h2 class="card-title">{{ pup.name }}</h2>

@@ -10,7 +10,7 @@
   src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
 >
 </script>
-<script defer src="{% static 'js/cat-detail.js' %}"></script>
+<script defer src="{% static 'js/pup-detail.js' %}"></script>
 <link 
   rel="stylesheet" 
   type="text/css" 
@@ -22,10 +22,18 @@
 
 <section class="pup-container">
   <div class="pup-img">
-    <img 
-      src="{% static 'images/dog2.svg' %}" 
-      alt="A skater boy pup"
-    >
+    {% if pup.photo.url %}
+      <img 
+        src="{{pup.photo.url}}" 
+        alt="A photo of {{pup.name}}"
+        class="usr-img"
+      >
+    {% else %}
+        <img 
+        src="{% static 'images/dog2.svg' %}" 
+        alt="A skater boy pup"
+      >
+    {% endif %}
   </div>
   <div class="pup-details">
     <h1>{{ pup.name }}</h1>
@@ -39,6 +47,21 @@
       <a href="{% url 'pups_update' pup.id %}" class="btn warn">Edit</a>
       <a href="{% url 'pups_delete' pup.id %}" class="btn danger">Delete</a>
     </div>
+    <h3>Change {{ pup.name }}'s photo</h3>
+    <p id="file-name"></p>
+    <form 
+      action="{% url 'add_photo' pup.id %}"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      {% csrf_token %}
+      <label class="btn secondary">
+        Choose photo
+        <input type="file" name="photo-file" id="file-input">
+      </label>
+      <button type="submit" class="btn submit">Upload Photo</button>
+    </form>
+  </div>
   </div>
 </section>
 
