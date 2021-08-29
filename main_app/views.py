@@ -64,6 +64,10 @@ class ToyCreate(LoginRequiredMixin,CreateView):
   
 class ToyList(LoginRequiredMixin,ListView):
   model = Toy
+  
+  # def get_queryset(self):
+  #     queryset=Toy.objects.filter(pk=1)
+  #     return queryset
 
 class ToyDetail(LoginRequiredMixin,DetailView):
   model = Toy
