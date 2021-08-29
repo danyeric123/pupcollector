@@ -1,7 +1,8 @@
 from main_app.forms import FeedingForm
-from main_app.models import Pup
+from main_app.models import Pup, Toy
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 def home(request):
@@ -23,6 +24,24 @@ class PupUpdate(UpdateView):
 class PupDelete(DeleteView):
   model = Pup
   success_url = '/pups/'
+  
+class ToyCreate(CreateView):
+  model = Toy
+  fields = '__all__'
+  
+class ToyList(ListView):
+  model = Toy
+
+class ToyDetail(DetailView):
+  model = Toy
+  
+class ToyUpdate(UpdateView):
+  model = Toy
+  fields = ['name', 'color']
+
+class ToyDelete(DeleteView):
+  model = Toy
+  success_url = '/toys/'
 
 # class Pup:  # Note that parens are optional if not inheriting from another class
 #   def __init__(self, name, breed, description, age):

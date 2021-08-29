@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 MEALS = (
@@ -7,6 +8,16 @@ MEALS = (
   ('L', 'Lunch'),
   ('D', 'Dinner')
 )
+
+class Toy(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=20)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('toys_detail', kwargs={'pk': self.id})
 
 class Pup(models.Model):
   name = models.CharField(max_length=100)
@@ -20,6 +31,9 @@ class Pup(models.Model):
   # Add this method
   def get_absolute_url(self):
     return reverse('pups_detail', kwargs={'pup_id': self.id})
+  
+  def fed_for_today(self):
+    return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
   
 # Add new Feeding model below Cat model
 class Feeding(models.Model):
