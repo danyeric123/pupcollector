@@ -1,4 +1,8 @@
 
+nav {
+  margin-top: 10px;
+}
+
 main {
   display: flex;
   align-items: center;
@@ -9,7 +13,7 @@ main {
 
 main > section {
   width: 100%;
-  padding: 10px 8px;
+  padding: 20px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,10 +25,10 @@ main > section {
 }
 
 .logo-container {
-  max-width: 375px;
+  max-width: 450px;
 }
 
-.pup-container {
+.cat-container {
   width: 80%;
 }
 
@@ -37,31 +41,30 @@ main > section {
 }
 
 .login h1 {
-  font-size: clamp(3.2rem, 3vw, 4.8rem);
-  margin: 10px 0;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  margin: 10px 0 16px 0;
 }
 
 .login > p {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 14px 0 0px;
 }
 
 .login label {
-  font-size: var(--font-reg);
-  margin-bottom: 6px;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
 }
 
 .login input {
-  font-size: var(--font-l);
-  padding: 2px 4px;
+  font-size: 1.2rem;
+  padding: 2px;
 }
 
 .login .btn {
   align-self: flex-end;
   margin-right: 0;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -71,17 +74,27 @@ main > section {
 
   main > section {
     width: 40%;
+    min-height: calc(100vh - 50px);
   }
 
   .login {
-    border: var(--borders);
+    border: rgb(36, 116, 248) solid 2px;
     padding: 20px;
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-box-shadow);
-    width: 100%;
+    border-radius: 6px;
   }
 
   .logo-container {
     max-width: 520px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  nav {
+    margin-top: 0;
+  }
+
+  main > section {
+    padding: 0 5px;
+    min-height: calc(100vh - 57.6px);
   }
 }
