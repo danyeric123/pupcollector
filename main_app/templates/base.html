@@ -20,17 +20,17 @@
     <div class="header-logo-container">
       <a href="/">
         <img 
-          src="{% static 'images/kawaii.svg' %}" 
+          src="{% static 'images/kawaii_puppy_logo.png' %}" 
           alt="The Pup Collector Logo"
-          width="100px"
-          style="border-radius: 70%;"
+          width="80px"
         >
       </a>
     </div>
     <nav>
       <ul>
-        <li><a href="/pups">All Pups</a></li>
-        <li><a href="/about">About</a></li>
+        <li><a href="{% url 'pups_index' %}">All Pups</a></li>
+        <li><a href="{% url 'pups_create' %}">Add a Pup</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
       </ul>
     </nav>
   </header>

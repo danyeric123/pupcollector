@@ -1,5 +1,6 @@
 from main_app.models import Pup
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
 def home(request):
@@ -7,6 +8,20 @@ def home(request):
 
 def about(request):
   return render(request, 'about.html')
+
+class PupCreate(CreateView):
+  model = Pup
+  fields = ['name', 'breed', 'description', 'age']
+  success_url = '/pups/'
+  
+class PupUpdate(UpdateView):
+  model = Pup
+  # Let's disallow the renaming of a cat by excluding the name field!
+  fields = ['breed', 'description', 'age']
+
+class PupDelete(DeleteView):
+  model = Pup
+  success_url = '/pups/'
 
 # class Pup:  # Note that parens are optional if not inheriting from another class
 #   def __init__(self, name, breed, description, age):
