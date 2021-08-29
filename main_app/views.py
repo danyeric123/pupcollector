@@ -62,8 +62,9 @@ def pups_index(request):
 
 def pups_detail(request, pup_id):
   pup = Pup.objects.get(id=pup_id)
+  toys_pup_doesnt_have = Toy.objects.exclude(id__in = pup.toys.all().values_list('id'))
   feeding_form = FeedingForm()
-  return render(request, 'pups/detail.html', { 'pup': pup, 'feeding_form': feeding_form })
+  return render(request, 'pups/detail.html', { 'pup': pup, 'feeding_form': feeding_form, 'toys': toys_pup_doesnt_have})
 
 def add_feeding(request, pup_id):
   # create a ModelForm instance using the data in request.POST
@@ -75,4 +76,14 @@ def add_feeding(request, pup_id):
     new_feeding = form.save(commit=False)
     new_feeding.pup_id = pup_id
     new_feeding.save()
+  return redirect('pups_detail', pup_id=pup_id)
+
+def assoc_toy(request, pup_id, toy_id):
+  # Note that you can pass a toy's id instead of the whole object
+  Pup.objects.get(id=pup_id).toys.add(toy_id)
+  return redirect('pups_detail', pup_id=pup_id)
+
+def remove_toy(request, pup_id, toy_id):
+  # Note that you can pass a toy's id instead of the whole object
+  Pup.objects.get(id=pup_id).toys.remove(toy_id)
   return redirect('pups_detail', pup_id=pup_id)
